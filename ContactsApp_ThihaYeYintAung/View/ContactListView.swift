@@ -8,22 +8,26 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct ContactListView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Contact.firstname, ascending: true),
+                          NSSortDescriptor(keyPath: \Contact.created_date, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var contacts: FetchedResults<Contact>
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(items) { item in
+                ForEach(contacts) { contact in
                     NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                        Text("Item at \(contact.created_date!, formatter: itemFormatter)")
                     } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+                        VStack(alignment: .leading) {
+                            Text("Name: \(contact.firstname! + contact.lastname!)")
+                            Text("Created Date: ") + Text(contact.created_date!, formatter: itemFormatter)
+                        }
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -44,8 +48,13 @@ struct ContentView: View {
 
     private func addItem() {
         withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            let newContact = Contact(context: viewContext)
+            newContact.firstname = "Thiha"
+            newContact.lastname = "Ye Yint Aung"
+            newContact.phone = "86180253"
+            newContact.email = "thihayeyintaung110919@gmail.com"
+            newContact.id = UUID()
+            newContact.created_date = Date()
 
             do {
                 try viewContext.save()
@@ -60,7 +69,7 @@ struct ContentView: View {
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
+            offsets.map { contacts[$0] }.forEach(viewContext.delete)
 
             do {
                 try viewContext.save()
@@ -77,12 +86,13 @@ struct ContentView: View {
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .short
-    formatter.timeStyle = .medium
+    formatter.timeStyle = .short
     return formatter
 }()
 
-struct ContentView_Previews: PreviewProvider {
+struct ContactListView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContactListView()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

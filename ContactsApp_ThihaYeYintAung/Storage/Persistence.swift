@@ -13,9 +13,14 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+        for _ in 0..<5 {
+            let newContact = Contact(context: viewContext)
+            newContact.firstname = "Thiha"
+            newContact.lastname = "Ye Yint Aung"
+            newContact.phone = "86180253"
+            newContact.email = "thihayeyintaung110919@gmail.com"
+            newContact.id = UUID()
+            newContact.created_date = Date()
         }
         do {
             try viewContext.save()
@@ -31,7 +36,7 @@ struct PersistenceController {
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "ContactsApp_ThihaYeYintAung")
+        container = NSPersistentContainer(name: "ContactApp")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
