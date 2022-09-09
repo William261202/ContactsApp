@@ -49,29 +49,28 @@ struct ContactEditView: View {
         }
     }
           
-    func cancelEntry() {
+    private func cancelEntry() {
         presentation.wrappedValue.dismiss()
     }
     
-    func save() {
-//        withAnimation {
-//            let newContact = Contact(context: viewContext)
-//            newContact.first_name = firstName
-//            newContact.last_name = lastName
-//            newContact.phone = phone
-//            newContact.email = email
-//            newContact.id =
-//            newContact.modified_date = Date()
-//
-//            do {
-//                try contactsProvider.container.viewContext.save()
-//            } catch {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                let nsError = error as NSError
-//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//            }
-//        }
+    private func save() {
+        withAnimation {
+            // Update entity properties as needed
+            contact.first_name = firstName
+            contact.last_name = lastName
+            contact.phone = phone
+            contact.email = email
+            contact.modified_date = Date()
+
+            do {
+                try viewContext.save()
+                
+                presentation.wrappedValue.dismiss()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
           
     var information: some View {

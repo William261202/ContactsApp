@@ -11,6 +11,7 @@ enum ContactError: Error {
     case wrongDataFormat(error: Error)
     case missingData
     case creationError
+    case updateError(Contact)
     case batchInsertError
     case batchDeleteError
     case persistentHistoryChangeError
@@ -27,6 +28,8 @@ extension ContactError: LocalizedError {
             return NSLocalizedString("Found and will discard a quake missing a valid code, magnitude, place, or time.", comment: "")
         case .creationError:
             return NSLocalizedString("Failed to create a new Quake object.", comment: "")
+        case .updateError(let contact):
+            return NSLocalizedString("Failed to update a contact with id: \(contact.id)", comment: "")
         case .batchInsertError:
             return NSLocalizedString("Failed to execute a batch insert request.", comment: "")
         case .batchDeleteError:
