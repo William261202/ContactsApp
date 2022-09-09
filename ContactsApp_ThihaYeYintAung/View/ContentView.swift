@@ -37,12 +37,15 @@ struct ContentView: View {
             .listStyle(.inset)
             .navigationTitle("Contacts")
             .navigationBarTitleDisplayMode(.inline)
+            .task {
+                await fetchQuakes()
+            }
             #if os(iOS)
             .refreshable {
                 await fetchQuakes()
             }
             #endif
-            Text("Select an item")
+            Text("Select a contact")
         }
     }
     

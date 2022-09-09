@@ -28,6 +28,6 @@ extension View {
         .frame(width: width, height: height)
         .background(Color.white)
         .clipShape(Circle())
-        .overlay(Circle().stroke(Color.white,lineWidth:4).shadow(radius: 8))
+        .background(Circle().stroke(Color.white,lineWidth:8).shadow(radius: 8))
     }
 }

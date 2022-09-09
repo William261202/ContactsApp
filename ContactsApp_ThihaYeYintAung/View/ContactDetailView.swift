@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContactDetailView: View {
     let contact: Contact
+    @State private var isEditPresented = false
     
     var body: some View {
         VStack(spacing: 16) {
@@ -23,12 +24,21 @@ struct ContactDetailView: View {
             information
                 .frame(maxHeight: .infinity, alignment: .top)
         }
+        .toolbar {
+            Button(action: {
+                isEditPresented.toggle()
+            }, label: {
+                Text("Edit")
+            })
+        }
+        .fullScreenCover(isPresented: $isEditPresented) {
+            ContactEditView(contact: contact)
+        }
     }
     
     var profile: some View {
         VStack(spacing: 8) {
             thumbnail(from: contact.avatar ?? "", width: 150, height: 150)
-                //.frame(width: 150, height: 150)
             
             Text(contact.fullName)
                 .font(.title2.bold())
@@ -38,46 +48,38 @@ struct ContactDetailView: View {
     var communicationIcons: some View {
         HStack(spacing: 25) {
             CommunicationIcon(title: "message", symbol: "message.fill", fontSize: 20)
-//            Spacer()
             CommunicationIcon(title: "call", symbol: "phone.fill", fontSize: 20)
-//            Spacer()
             CommunicationIcon(title: "email", symbol: "envelope.fill", fontSize: 20)
-//            Spacer()
             CommunicationIcon(title: "favorite", symbol: "star.fill", fontSize: 20)
         }
-//        .padding(.horizontal, 30)
     }
     
     var information: some View {
-        ZStack {
-            VStack(alignment: .trailingPhoneAndEmail, spacing: 16) {
-                HStack(spacing: 20) {
-                    Text("mobile")
-                        .foregroundColor(.secondary)
-                        .alignmentGuide(.trailingPhoneAndEmail) { d in d[HorizontalAlignment.trailing] }
-                        .padding(.leading, 8)
-
-                    Text(contact.phone ?? "")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .padding(.vertical, 8)
-                
-                HStack(spacing: 20) {
-                    Text("email")
-                        .foregroundColor(.secondary)
-                        .alignmentGuide(.trailingPhoneAndEmail) { d in d[HorizontalAlignment.trailing] }
-                        .padding(.leading, 8)
-                    
-                    Text(contact.email ?? "")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .padding(.vertical, 8)
-            }
-            .font(.system(size: 18))
+        VStack(alignment: .trailingPhoneAndEmail, spacing: 16) {
+            subInfo(title: "mobile", value: contact.phone ?? "")
             
-            Divider()
+            subInfo(title: "email", value: contact.email ?? "")
         }
+        .font(.system(size: 18))
         .padding(.horizontal, 20)
+    }
+    
+    private func subInfo(title: String, value: String) -> some View {
+        HStack(spacing: 20) {
+            Text(title)
+                .foregroundColor(.secondary)
+                .alignmentGuide(.trailingPhoneAndEmail) { d in d[HorizontalAlignment.trailing] }
+                .padding(.leading, 8)
+            
+            VStack {
+                Text(value)
+                    .frame(height: 30)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Divider()
+            }
+            .frame(maxWidth: 250, alignment: .leading)
+        }
+        .padding(.vertical, 8)
     }
 }
 

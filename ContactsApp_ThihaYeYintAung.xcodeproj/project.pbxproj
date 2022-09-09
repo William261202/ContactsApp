@@ -28,6 +28,7 @@
 		9EB8030128CB649D00975A17 /* CommunicationIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8030028CB649D00975A17 /* CommunicationIcon.swift */; };
 		9EB8030328CB71EB00975A17 /* CustomAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8030228CB71EB00975A17 /* CustomAlignment.swift */; };
 		9EB8030528CB7D4500975A17 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8030428CB7D4500975A17 /* Color.swift */; };
+		9EB8030728CB82DA00975A17 /* ContactEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8030628CB82DA00975A17 /* ContactEditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		9EB8030028CB649D00975A17 /* CommunicationIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationIcon.swift; sourceTree = "<group>"; };
 		9EB8030228CB71EB00975A17 /* CustomAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlignment.swift; sourceTree = "<group>"; };
 		9EB8030428CB7D4500975A17 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		9EB8030628CB82DA00975A17 /* ContactEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			children = (
 				9E3F5AB228C8F35700531A7F /* ContentView.swift */,
 				9EB802F528CB258D00975A17 /* ContactDetailView.swift */,
+				9EB8030628CB82DA00975A17 /* ContactEditView.swift */,
 				9EB802FF28CB649100975A17 /* SubView */,
 			);
 			path = View;
@@ -350,6 +353,7 @@
 				9E3F5A8828C87DBA00531A7F /* Persistence.swift in Sources */,
 				9EB802FE28CB597400975A17 /* View.swift in Sources */,
 				9EB8030128CB649D00975A17 /* CommunicationIcon.swift in Sources */,
+				9EB8030728CB82DA00975A17 /* ContactEditView.swift in Sources */,
 				9EB8030328CB71EB00975A17 /* CustomAlignment.swift in Sources */,
 				9E3F5AC128C986FE00531A7F /* Optional.swift in Sources */,
 				9EB802F428CAFE8000975A17 /* ContactError.swift in Sources */,
