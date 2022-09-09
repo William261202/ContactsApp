@@ -9,16 +9,19 @@ import SwiftUI
 
 struct ContactEditView: View {
     @Environment(\.presentationMode) var presentation
+    @Environment(\.managedObjectContext) var viewContext
     
     @State private var firstName: String = ""
     @State private var lastName: String = ""
     @State private var phone: String = ""
     @State private var email: String = ""
     
-    let avatar: String?
+    @State var saveDisabled = true
+        
+    let contact: Contact
     
     init(contact: Contact) {
-        avatar = contact.avatar
+        self.contact = contact
         _firstName = .init(wrappedValue: contact.first_name ?? "")
         _lastName = .init(wrappedValue: contact.last_name ?? "")
         _phone = .init(wrappedValue: contact.phone ?? "")
@@ -28,7 +31,7 @@ struct ContactEditView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 16) {
-                thumbnail(from: avatar ?? "", width: 150, height: 150)
+                thumbnail(from: contact.avatar ?? "", width: 150, height: 150)
                     .padding(.vertical, 16)
                     .frame(maxWidth: .infinity)
                     .background(LinearGradient(colors: [Color.white, Color(ColorsSaved.neonGreen)], startPoint: .top, endPoint: .bottom))
@@ -39,30 +42,50 @@ struct ContactEditView: View {
             .navigationBarTitle("Edit Contact", displayMode: .inline)
             .navigationBarItems(leading: Button(action: cancelEntry) {
                 Text("Cancel")
-                    .foregroundColor(.black)
-            }, trailing: Button(action: {}) {
+            }, trailing: Button(action: save) {
                 Text("Save")
-                    .foregroundColor(.black)
-            })
+            }
+            .disabled(saveDisabled))
         }
     }
           
     func cancelEntry() {
         presentation.wrappedValue.dismiss()
     }
+    
+    func save() {
+//        withAnimation {
+//            let newContact = Contact(context: viewContext)
+//            newContact.first_name = firstName
+//            newContact.last_name = lastName
+//            newContact.phone = phone
+//            newContact.email = email
+//            newContact.id =
+//            newContact.modified_date = Date()
+//
+//            do {
+//                try contactsProvider.container.viewContext.save()
+//            } catch {
+//                // Replace this implementation with code to handle the error appropriately.
+//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//                let nsError = error as NSError
+//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+//            }
+//        }
+    }
           
     var information: some View {
             VStack(alignment: .trailingPhoneAndEmail, spacing: 16) {
-                subInfo(title: "First Name", value: $firstName)
-                subInfo(title: "Last Name", value: $lastName)
-                subInfo(title: "mobile", value: $phone)
-                subInfo(title: "email", value: $email)
+                subInfo(title: "First Name", source: contact.first_name, value: $firstName)
+                subInfo(title: "Last Name", source: contact.last_name, value: $lastName)
+                subInfo(title: "mobile", source: contact.phone, value: $phone)
+                subInfo(title: "email", source: contact.email, value: $email)
             }
             .font(.system(size: 18))
             .padding(.horizontal, 20)
     }
     
-    private func subInfo(title: String, value: Binding<String>) -> some View {
+    private func subInfo(title: String, source: String?, value: Binding<String>) -> some View {
         HStack(spacing: 20) {
             Text(title)
                 .foregroundColor(.secondary)
@@ -71,6 +94,9 @@ struct ContactEditView: View {
             
             VStack {
                 TextField("", text: value)
+                    .onChange(of: value.wrappedValue) { new in
+                        validateFields(compare: source, to: new)
+                    }
                     .frame(height: 30)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Divider()
@@ -78,6 +104,14 @@ struct ContactEditView: View {
             .frame(maxWidth: 250, alignment: .leading)
         }
         .padding(.vertical, 8)
+    }
+    
+    func validateFields(compare old: String?, to new: String?) {
+        if new.isEmptyOrNil || new == old {
+            saveDisabled = true
+            return
+        }
+        saveDisabled = false
     }
 }
 
