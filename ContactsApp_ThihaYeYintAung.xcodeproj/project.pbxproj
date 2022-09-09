@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9E3F5A7F28C87DB800531A7F /* ContactsApp_ThihaYeYintAungApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F5A7E28C87DB800531A7F /* ContactsApp_ThihaYeYintAungApp.swift */; };
-		9E3F5A8128C87DB800531A7F /* ContactListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F5A8028C87DB800531A7F /* ContactListView.swift */; };
 		9E3F5A8328C87DBA00531A7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E3F5A8228C87DBA00531A7F /* Assets.xcassets */; };
 		9E3F5A8628C87DBA00531A7F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E3F5A8528C87DBA00531A7F /* Preview Assets.xcassets */; };
 		9E3F5A8828C87DBA00531A7F /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F5A8728C87DBA00531A7F /* Persistence.swift */; };
@@ -17,6 +16,18 @@
 		9E3F5AA128C87DBA00531A7F /* ContactsApp_ThihaYeYintAungUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F5AA028C87DBA00531A7F /* ContactsApp_ThihaYeYintAungUITestsLaunchTests.swift */; };
 		9E3F5AB128C87F4B00531A7F /* ContactApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F5AAF28C87F4B00531A7F /* ContactApp.xcdatamodeld */; };
 		9E3F5AB328C8F35700531A7F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F5AB228C8F35700531A7F /* ContentView.swift */; };
+		9E3F5ABC28C8FC4E00531A7F /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F5ABB28C8FC4E00531A7F /* Contact+CoreDataProperties.swift */; };
+		9E3F5ABE28C8FDAA00531A7F /* Contact_CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F5ABD28C8FDAA00531A7F /* Contact_CoreDataClass.swift */; };
+		9E3F5AC128C986FE00531A7F /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F5AC028C986FE00531A7F /* Optional.swift */; };
+		9EB802F228CAFC0900975A17 /* ContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB802F128CAFC0900975A17 /* ContactsProvider.swift */; };
+		9EB802F428CAFE8000975A17 /* ContactError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB802F328CAFE8000975A17 /* ContactError.swift */; };
+		9EB802F628CB258D00975A17 /* ContactDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB802F528CB258D00975A17 /* ContactDetailView.swift */; };
+		9EB802F828CB25CC00975A17 /* ContactRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB802F728CB25CC00975A17 /* ContactRowView.swift */; };
+		9EB802FC28CB271700975A17 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB802FB28CB271700975A17 /* UserModel.swift */; };
+		9EB802FE28CB597400975A17 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB802FD28CB597400975A17 /* View.swift */; };
+		9EB8030128CB649D00975A17 /* CommunicationIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8030028CB649D00975A17 /* CommunicationIcon.swift */; };
+		9EB8030328CB71EB00975A17 /* CustomAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8030228CB71EB00975A17 /* CustomAlignment.swift */; };
+		9EB8030528CB7D4500975A17 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8030428CB7D4500975A17 /* Color.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +50,6 @@
 /* Begin PBXFileReference section */
 		9E3F5A7B28C87DB800531A7F /* ContactsApp_ThihaYeYintAung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsApp_ThihaYeYintAung.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3F5A7E28C87DB800531A7F /* ContactsApp_ThihaYeYintAungApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsApp_ThihaYeYintAungApp.swift; sourceTree = "<group>"; };
-		9E3F5A8028C87DB800531A7F /* ContactListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListView.swift; sourceTree = "<group>"; };
 		9E3F5A8228C87DBA00531A7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E3F5A8528C87DBA00531A7F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9E3F5A8728C87DBA00531A7F /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -50,6 +60,18 @@
 		9E3F5AA028C87DBA00531A7F /* ContactsApp_ThihaYeYintAungUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsApp_ThihaYeYintAungUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9E3F5AB028C87F4B00531A7F /* Contact.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Contact.xcdatamodel; sourceTree = "<group>"; };
 		9E3F5AB228C8F35700531A7F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9E3F5ABB28C8FC4E00531A7F /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9E3F5ABD28C8FDAA00531A7F /* Contact_CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact_CoreDataClass.swift; sourceTree = "<group>"; };
+		9E3F5AC028C986FE00531A7F /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
+		9EB802F128CAFC0900975A17 /* ContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsProvider.swift; sourceTree = "<group>"; };
+		9EB802F328CAFE8000975A17 /* ContactError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactError.swift; sourceTree = "<group>"; };
+		9EB802F528CB258D00975A17 /* ContactDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailView.swift; sourceTree = "<group>"; };
+		9EB802F728CB25CC00975A17 /* ContactRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRowView.swift; sourceTree = "<group>"; };
+		9EB802FB28CB271700975A17 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		9EB802FD28CB597400975A17 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		9EB8030028CB649D00975A17 /* CommunicationIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationIcon.swift; sourceTree = "<group>"; };
+		9EB8030228CB71EB00975A17 /* CustomAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlignment.swift; sourceTree = "<group>"; };
+		9EB8030428CB7D4500975A17 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +123,10 @@
 			isa = PBXGroup;
 			children = (
 				9E3F5A7E28C87DB800531A7F /* ContactsApp_ThihaYeYintAungApp.swift */,
+				9E3F5ABF28C986E700531A7F /* Extensions */,
 				9E3F5AB428C8F41F00531A7F /* View */,
+				9E3F5ABA28C8F9CD00531A7F /* ViewModel */,
+				9EB802EE28CADD2E00975A17 /* Model */,
 				9E3F5AB528C8F4B500531A7F /* Storage */,
 				9E3F5A8228C87DBA00531A7F /* Assets.xcassets */,
 				9E3F5A8428C87DBA00531A7F /* Preview Content */,
@@ -138,7 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				9E3F5AB228C8F35700531A7F /* ContentView.swift */,
-				9E3F5A8028C87DB800531A7F /* ContactListView.swift */,
+				9EB802F528CB258D00975A17 /* ContactDetailView.swift */,
+				9EB802FF28CB649100975A17 /* SubView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -150,6 +176,45 @@
 				9E3F5AAF28C87F4B00531A7F /* ContactApp.xcdatamodeld */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		9E3F5ABA28C8F9CD00531A7F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9EB802F128CAFC0900975A17 /* ContactsProvider.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9E3F5ABF28C986E700531A7F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9E3F5AC028C986FE00531A7F /* Optional.swift */,
+				9EB802FD28CB597400975A17 /* View.swift */,
+				9EB8030228CB71EB00975A17 /* CustomAlignment.swift */,
+				9EB8030428CB7D4500975A17 /* Color.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9EB802EE28CADD2E00975A17 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9E3F5ABB28C8FC4E00531A7F /* Contact+CoreDataProperties.swift */,
+				9E3F5ABD28C8FDAA00531A7F /* Contact_CoreDataClass.swift */,
+				9EB802FB28CB271700975A17 /* UserModel.swift */,
+				9EB802F328CAFE8000975A17 /* ContactError.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9EB802FF28CB649100975A17 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				9EB802F728CB25CC00975A17 /* ContactRowView.swift */,
+				9EB8030028CB649D00975A17 /* CommunicationIcon.swift */,
+			);
+			path = SubView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,10 +348,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E3F5A8828C87DBA00531A7F /* Persistence.swift in Sources */,
-				9E3F5A8128C87DB800531A7F /* ContactListView.swift in Sources */,
+				9EB802FE28CB597400975A17 /* View.swift in Sources */,
+				9EB8030128CB649D00975A17 /* CommunicationIcon.swift in Sources */,
+				9EB8030328CB71EB00975A17 /* CustomAlignment.swift in Sources */,
+				9E3F5AC128C986FE00531A7F /* Optional.swift in Sources */,
+				9EB802F428CAFE8000975A17 /* ContactError.swift in Sources */,
+				9E3F5ABE28C8FDAA00531A7F /* Contact_CoreDataClass.swift in Sources */,
+				9E3F5ABC28C8FC4E00531A7F /* Contact+CoreDataProperties.swift in Sources */,
+				9EB802F228CAFC0900975A17 /* ContactsProvider.swift in Sources */,
+				9EB802FC28CB271700975A17 /* UserModel.swift in Sources */,
 				9E3F5AB328C8F35700531A7F /* ContentView.swift in Sources */,
 				9E3F5AB128C87F4B00531A7F /* ContactApp.xcdatamodeld in Sources */,
+				9EB802F628CB258D00975A17 /* ContactDetailView.swift in Sources */,
+				9EB802F828CB25CC00975A17 /* ContactRowView.swift in Sources */,
 				9E3F5A7F28C87DB800531A7F /* ContactsApp_ThihaYeYintAungApp.swift in Sources */,
+				9EB8030528CB7D4500975A17 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,8 +527,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -480,8 +557,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

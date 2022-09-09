@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct ContactsApp_ThihaYeYintAungApp: App {
-    let persistenceController = PersistenceController.shared
+    let viewContext = ContactsProvider.shared.container.viewContext
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, viewContext)
         }
     }
 }
