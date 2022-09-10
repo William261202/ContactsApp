@@ -41,16 +41,7 @@ struct ContentView: View {
             .task {
                 await fetchQuakes()
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        isAddPresented.toggle()
-                    }, label: {
-                        Image(systemName: "plus")
-                            .imageScale(.large)
-                    })
-                }
-            }
+            .toolbar(content: toolbarContent)
             .fullScreenCover(isPresented: $isAddPresented) {
                 ContactAddView()
             }
@@ -62,6 +53,37 @@ struct ContentView: View {
             Text("Select a contact")
         }
     }
+}
+
+extension ContentView {
+    @ToolbarContentBuilder
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: {
+                isAddPresented.toggle()
+            }, label: {
+                Image(systemName: "plus")
+                    .imageScale(.large)
+            })
+        }
+
+        ToolbarItemGroup(placement: .bottomBar) {
+            RefreshButton {
+                Task {
+                    await fetchQuakes()
+                }
+            }
+
+            Spacer()
+            ToolbarStatus(
+                isLoading: isLoading,
+                lastUpdated: lastUpdated,
+                contactsCount: contacts.count
+            )
+            Spacer()
+        }
+    }
+
 }
 
 extension ContentView {

@@ -31,6 +31,8 @@
 		9EB8030328CB71EB00975A17 /* CustomAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8030228CB71EB00975A17 /* CustomAlignment.swift */; };
 		9EB8030528CB7D4500975A17 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8030428CB7D4500975A17 /* Color.swift */; };
 		9EB8030728CB82DA00975A17 /* ContactEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB8030628CB82DA00975A17 /* ContactEditView.swift */; };
+		9ED6D84228CC585A003927B7 /* ToolbarStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED6D84128CC585A003927B7 /* ToolbarStatus.swift */; };
+		9ED6D84428CC592F003927B7 /* RefreshButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED6D84328CC592F003927B7 /* RefreshButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,8 @@
 		9EB8030228CB71EB00975A17 /* CustomAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlignment.swift; sourceTree = "<group>"; };
 		9EB8030428CB7D4500975A17 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9EB8030628CB82DA00975A17 /* ContactEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEditView.swift; sourceTree = "<group>"; };
+		9ED6D84128CC585A003927B7 /* ToolbarStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarStatus.swift; sourceTree = "<group>"; };
+		9ED6D84328CC592F003927B7 /* RefreshButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +226,8 @@
 			children = (
 				9EB802F728CB25CC00975A17 /* ContactRowView.swift */,
 				9EB8030028CB649D00975A17 /* CommunicationIcon.swift */,
+				9ED6D84128CC585A003927B7 /* ToolbarStatus.swift */,
+				9ED6D84328CC592F003927B7 /* RefreshButton.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -357,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E3F5A8828C87DBA00531A7F /* Persistence.swift in Sources */,
+				9ED6D84428CC592F003927B7 /* RefreshButton.swift in Sources */,
 				9EB802FE28CB597400975A17 /* View.swift in Sources */,
 				9E0D37B928CC3186001A84ED /* Contact+Codable.swift in Sources */,
 				9EB8030128CB649D00975A17 /* CommunicationIcon.swift in Sources */,
@@ -365,6 +372,7 @@
 				9E0D37BD28CC3D35001A84ED /* ContactAddView.swift in Sources */,
 				9E3F5AC128C986FE00531A7F /* Optional.swift in Sources */,
 				9EB802F428CAFE8000975A17 /* ContactError.swift in Sources */,
+				9ED6D84228CC585A003927B7 /* ToolbarStatus.swift in Sources */,
 				9E3F5ABE28C8FDAA00531A7F /* Contact_CoreDataClass.swift in Sources */,
 				9E3F5ABC28C8FC4E00531A7F /* Contact+CoreDataProperties.swift in Sources */,
 				9EB802F228CAFC0900975A17 /* ContactsProvider.swift in Sources */,
