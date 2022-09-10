@@ -25,7 +25,7 @@ struct ToolbarStatus: View {
             } else {
                 let lastUpdatedDate = Date(timeIntervalSince1970: lastUpdated)
                 Text("Updated \(lastUpdatedDate.formatted(.relative(presentation: .named)))")
-                Text("\(contactsCount) Earthquakes")
+                Text("\(contactsCount) Contacts")
                     .foregroundStyle(Color.secondary)
             }
         }
