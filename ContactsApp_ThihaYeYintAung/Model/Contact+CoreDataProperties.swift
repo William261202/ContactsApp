@@ -25,10 +25,7 @@ extension Contact {
     @NSManaged public var avatar: String?
     
     public var fullName: String {
-        if let fName = first_name, let lName = last_name {
-            return fName + " " + lName
-        }
-        return ""
+        "\(first_name ?? "") \(last_name ?? "")"
     }
 }
 

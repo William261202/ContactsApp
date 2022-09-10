@@ -92,9 +92,22 @@ class ContactsProvider {
         container.viewContext.automaticallyMergesChangesFromParent = false
         container.viewContext.name = "viewContext"
         /// - Tag: viewContextMergePolicy
-        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         container.viewContext.undoManager = nil
         container.viewContext.shouldDeleteInaccessibleFaults = true
+        
+        // This sample finds the highest id value
+        let fetchRequest: NSFetchRequest<Contact> = Contact.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Contact.id, ascending: false)]
+       
+        do {
+            let contact = try container.viewContext.fetch(fetchRequest)
+            self.userDefault.set(contact.first?.id ?? 1, forKey: ContactsProvider.PKKey)
+        } catch {
+            logger.debug("Failed to find the highest contact id, \(error.localizedDescription).")
+        }
+        
         return container
     }()
 

@@ -75,25 +75,16 @@ struct ContactEditView: View {
         }
     }
     
-//    private func save() async {
-//        withAnimation {
-//            // Update entity properties as needed
-//            contact.first_name = firstName
-//            contact.last_name = lastName
-//            contact.phone = phone
-//            contact.email = email
-//            contact.modified_date = Date()
-//
-//            do {
-//                try viewContext.save()
-//
-//                presentation.wrappedValue.dismiss()
-//            } catch {
-//                let nsError = error as NSError
-//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//            }
-//        }
-//    }
+    private func editContact() throws {
+        // Update entity properties as needed
+        contact.first_name = firstName
+        contact.last_name = lastName
+        contact.phone = phone
+        contact.email = email
+        contact.modified_date = Date()
+        
+        try viewContext.save()
+    }
     
     func save() async {
         let userDetail = UserDetail(id: contact.id, email: email, firstName: firstName, lastName: lastName, avatar: contact.avatar)
@@ -109,8 +100,10 @@ struct ContactEditView: View {
 
         do {
             let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
-
             let decodedUser = try JSONDecoder().decode(UserDetail.self, from: data)
+            
+            try editContact()
+            
             confirmationMessage = "Contact ID: \(decodedUser.id) \(decodedUser.firstName ?? "") \(decodedUser.lastName ?? "") is successfully updated!"
             showingConfirmation = true
         } catch {

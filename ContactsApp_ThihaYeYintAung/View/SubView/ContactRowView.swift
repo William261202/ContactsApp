@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContactRowView: View {
-    let contact: Contact
+    var contact: Contact
     
     var body: some View {
         HStack(spacing: 16) {

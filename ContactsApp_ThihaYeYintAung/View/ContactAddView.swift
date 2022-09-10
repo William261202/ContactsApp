@@ -12,7 +12,7 @@ struct ContactAddView: View {
     @Environment(\.managedObjectContext) var viewContext
     
     @AppStorage(ContactsProvider.PKKey)
-    private var lastPKValue = 0
+    private var PKValue = 0
     
     @State private var firstName: String = ""
     @State private var lastName: String = ""
@@ -76,14 +76,16 @@ struct ContactAddView: View {
         newContact.last_name = lastName
         newContact.phone = phone
         newContact.email = email
-        newContact.id = lastPKValue + 1
+        newContact.id = PKValue + 1
         newContact.created_date = Date()
 
         try viewContext.save()
+        
+        PKValue += 1
     }
     
     func save() async {
-        let userDetail = UserDetail(id: lastPKValue + 1, email: email, firstName: firstName, lastName: lastName, avatar: "")
+        let userDetail = UserDetail(id: PKValue + 1, email: email, firstName: firstName, lastName: lastName, avatar: "")
         guard let encoded = try? JSONEncoder().encode(userDetail) else {
             print("Failed to encode a contact")
             return
@@ -119,27 +121,6 @@ struct ContactAddView: View {
             .font(.system(size: 18))
             .padding(.horizontal, 20)
     }
-    
-//    private func subInfo(title: String, source: String?, value: Binding<String>) -> some View {
-//        HStack(spacing: 20) {
-//            Text(title)
-//                .foregroundColor(.secondary)
-//                .alignmentGuide(.trailingPhoneAndEmail) { d in d[HorizontalAlignment.trailing] }
-//                .padding(.leading, 8)
-//            
-//            VStack {
-//                TextField("", text: value)
-//                    .onChange(of: value.wrappedValue) { new in
-//                        validateFields(compare: source, to: new)
-//                    }
-//                    .frame(height: 30)
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                Divider()
-//            }
-//            .frame(maxWidth: 250, alignment: .leading)
-//        }
-//        .padding(.vertical, 8)
-//    }
     
     func validateFields(compare old: String?, to new: String?) {
         if new.isEmptyOrNil || new == old {
