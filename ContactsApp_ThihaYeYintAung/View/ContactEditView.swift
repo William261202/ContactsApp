@@ -46,17 +46,13 @@ struct ContactEditView: View {
             .navigationBarItems(
                 leading: cancelButton,
                 trailing: saveButton
-            .disabled(saveDisabled))
+            .disabled(saveDisabled || firstName.isEmpty || lastName.isEmpty))
             .alert("Updated!", isPresented: $showingConfirmation) {
                 Button("OK") { presentation.wrappedValue.dismiss() }
             } message: {
                 Text(confirmationMessage)
             }
         }
-    }
-          
-    private func cancelEntry() {
-        
     }
     
     private var cancelButton: some View {
@@ -123,27 +119,6 @@ struct ContactEditView: View {
             .font(.system(size: 18))
             .padding(.horizontal, 20)
     }
-    
-//    private func subInfo(title: String, source: String?, value: Binding<String>) -> some View {
-//        HStack(spacing: 20) {
-//            Text(title)
-//                .foregroundColor(.secondary)
-//                .alignmentGuide(.trailingPhoneAndEmail) { d in d[HorizontalAlignment.trailing] }
-//                .padding(.leading, 8)
-//
-//            VStack {
-//                TextField("", text: value)
-//                    .onChange(of: value.wrappedValue) { new in
-//                        validateFields(compare: source, to: new)
-//                    }
-//                    .frame(height: 30)
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                Divider()
-//            }
-//            .frame(maxWidth: 250, alignment: .leading)
-//        }
-//        .padding(.vertical, 8)
-//    }
     
     func validateFields(compare old: String?, to new: String?) {
         if new.isEmptyOrNil || new == old {

@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct ContactRowView: View {
-    var contact: Contact
+    let contact: Contact
+    let fullName: String
+   
+    init(contact: Contact) {
+        self.contact = contact
+        self.fullName = contact.fullName
+    }
     
     var body: some View {
         HStack(spacing: 16) {
             thumbnail(from: contact.avatar ?? "", width: 60, height: 60, strokeWidth: 4)
                 .padding(4)
             
-            Text(contact.fullName)
+            Text(fullName)
                 .font(.title3.bold())
         }
     }

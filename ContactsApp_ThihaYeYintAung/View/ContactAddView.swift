@@ -41,7 +41,7 @@ struct ContactAddView: View {
             .navigationBarItems(
                 leading: cancelButton,
                 trailing: saveButton
-            .disabled(saveDisabled))
+            .disabled(saveDisabled || firstName.isEmpty || lastName.isEmpty))
             .alert("Added!", isPresented: $showingConfirmation) {
                 Button("OK") { presentation.wrappedValue.dismiss() }
             } message: {
