@@ -53,7 +53,7 @@ struct User: Decodable {
     }
 }
 
-struct UserDetail: Decodable {
+struct UserDetail: Codable {
     var id: Int
     var email: String?
     var firstName: String?

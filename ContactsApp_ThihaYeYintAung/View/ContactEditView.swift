@@ -17,6 +17,8 @@ struct ContactEditView: View {
     @State private var email: String = ""
     
     @State var saveDisabled = true
+    @State private var confirmationMessage = ""
+    @State private var showingConfirmation = false
         
     let contact: Contact
     
@@ -33,6 +35,7 @@ struct ContactEditView: View {
             VStack(spacing: 16) {
                 thumbnail(from: contact.avatar ?? "", width: 150, height: 150)
                     .padding(.vertical, 16)
+                    .padding(.bottom, 8)
                     .frame(maxWidth: .infinity)
                     .background(LinearGradient(colors: [Color.white, Color(ColorsSaved.neonGreen)], startPoint: .top, endPoint: .bottom))
                     
@@ -40,36 +43,79 @@ struct ContactEditView: View {
                     .frame(maxHeight: .infinity, alignment: .top)
             }
             .navigationBarTitle("Edit Contact", displayMode: .inline)
-            .navigationBarItems(leading: Button(action: cancelEntry) {
-                Text("Cancel")
-            }, trailing: Button(action: save) {
-                Text("Save")
-            }
+            .navigationBarItems(
+                leading: cancelButton,
+                trailing: saveButton
             .disabled(saveDisabled))
+            .alert("Updated!", isPresented: $showingConfirmation) {
+                Button("OK") { presentation.wrappedValue.dismiss() }
+            } message: {
+                Text(confirmationMessage)
+            }
         }
     }
           
     private func cancelEntry() {
-        presentation.wrappedValue.dismiss()
+        
     }
     
-    private func save() {
-        withAnimation {
-            // Update entity properties as needed
-            contact.first_name = firstName
-            contact.last_name = lastName
-            contact.phone = phone
-            contact.email = email
-            contact.modified_date = Date()
+    private var cancelButton: some View {
+        Button {
+            presentation.wrappedValue.dismiss()
+        } label: {
+            Text("Cancel")
+        }
+    }
+    
+    private var saveButton: some View {
+        Button {
+            Task { await save() }
+        } label: {
+            Text("Save")
+        }
+    }
+    
+//    private func save() async {
+//        withAnimation {
+//            // Update entity properties as needed
+//            contact.first_name = firstName
+//            contact.last_name = lastName
+//            contact.phone = phone
+//            contact.email = email
+//            contact.modified_date = Date()
+//
+//            do {
+//                try viewContext.save()
+//
+//                presentation.wrappedValue.dismiss()
+//            } catch {
+//                let nsError = error as NSError
+//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+//            }
+//        }
+//    }
+    
+    func save() async {
+        let userDetail = UserDetail(id: contact.id, email: email, firstName: firstName, lastName: lastName, avatar: contact.avatar)
+        guard let encoded = try? JSONEncoder().encode(userDetail) else {
+            print("Failed to encode a contact")
+            return
+        }
 
-            do {
-                try viewContext.save()
-                
-                presentation.wrappedValue.dismiss()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+        let url = URL(string: "https://reqres.in/api/users/\(contact.id)")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "PUT"
+
+        do {
+            let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+
+            let decodedUser = try JSONDecoder().decode(UserDetail.self, from: data)
+            confirmationMessage = "Contact ID: \(decodedUser.id) \(decodedUser.firstName ?? "") \(decodedUser.lastName ?? "") is successfully updated!"
+            showingConfirmation = true
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
           
