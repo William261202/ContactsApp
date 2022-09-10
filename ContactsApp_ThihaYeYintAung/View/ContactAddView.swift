@@ -1,15 +1,18 @@
 //
-//  ContactEditView.swift
+//  ContactAddView.swift
 //  ContactsApp_ThihaYeYintAung
 //
-//  Created by Thiha Ye Yint Aung on 9/9/22.
+//  Created by Thiha Ye Yint Aung on 10/9/22.
 //
 
 import SwiftUI
 
-struct ContactEditView: View {
+struct ContactAddView: View {
     @Environment(\.presentationMode) var presentation
     @Environment(\.managedObjectContext) var viewContext
+    
+    @AppStorage(ContactsProvider.PKKey)
+    private var lastPKValue = 0
     
     @State private var firstName: String = ""
     @State private var lastName: String = ""
@@ -19,21 +22,13 @@ struct ContactEditView: View {
     @State var saveDisabled = true
     @State private var confirmationMessage = ""
     @State private var showingConfirmation = false
-        
-    let contact: Contact
-    
-    init(contact: Contact) {
-        self.contact = contact
-        _firstName = .init(wrappedValue: contact.first_name ?? "")
-        _lastName = .init(wrappedValue: contact.last_name ?? "")
-        _phone = .init(wrappedValue: contact.phone ?? "")
-        _email = .init(wrappedValue: contact.email ?? "")
-    }
     
     var body: some View {
         NavigationView {
             VStack(spacing: 16) {
-                thumbnail(from: contact.avatar ?? "", width: 150, height: 150, strokeWidth: 8)
+                Circle()
+                    .frame(width: 150, height: 150)
+                    .background(Circle().stroke(Color.white,lineWidth:8).shadow(radius: 8))
                     .padding(.vertical, 16)
                     .padding(.bottom, 8)
                     .frame(maxWidth: .infinity)
@@ -42,12 +37,12 @@ struct ContactEditView: View {
                 information
                     .frame(maxHeight: .infinity, alignment: .top)
             }
-            .navigationBarTitle("Edit Contact", displayMode: .inline)
+            .navigationBarTitle("Add Contact", displayMode: .inline)
             .navigationBarItems(
                 leading: cancelButton,
                 trailing: saveButton
             .disabled(saveDisabled))
-            .alert("Updated!", isPresented: $showingConfirmation) {
+            .alert("Added!", isPresented: $showingConfirmation) {
                 Button("OK") { presentation.wrappedValue.dismiss() }
             } message: {
                 Text(confirmationMessage)
@@ -75,42 +70,36 @@ struct ContactEditView: View {
         }
     }
     
-//    private func save() async {
-//        withAnimation {
-//            // Update entity properties as needed
-//            contact.first_name = firstName
-//            contact.last_name = lastName
-//            contact.phone = phone
-//            contact.email = email
-//            contact.modified_date = Date()
-//
-//            do {
-//                try viewContext.save()
-//
-//                presentation.wrappedValue.dismiss()
-//            } catch {
-//                let nsError = error as NSError
-//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//            }
-//        }
-//    }
+    private func addContact() throws {
+        let newContact = Contact(context: viewContext)
+        newContact.first_name = firstName
+        newContact.last_name = lastName
+        newContact.phone = phone
+        newContact.email = email
+        newContact.id = lastPKValue + 1
+        newContact.created_date = Date()
+
+        try viewContext.save()
+    }
     
     func save() async {
-        let userDetail = UserDetail(id: contact.id, email: email, firstName: firstName, lastName: lastName, avatar: contact.avatar)
+        let userDetail = UserDetail(id: lastPKValue + 1, email: email, firstName: firstName, lastName: lastName, avatar: "")
         guard let encoded = try? JSONEncoder().encode(userDetail) else {
             print("Failed to encode a contact")
             return
         }
 
-        let url = URL(string: "https://reqres.in/api/users/\(contact.id)")!
+        let url = URL(string: "https://reqres.in/api/users")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "PUT"
+        request.httpMethod = "POST"
 
         do {
             let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
-
             let decodedUser = try JSONDecoder().decode(UserDetail.self, from: data)
+            
+            try addContact()
+            
             confirmationMessage = "Contact ID: \(decodedUser.id) \(decodedUser.firstName ?? "") \(decodedUser.lastName ?? "") is successfully updated!"
             showingConfirmation = true
         } catch {
@@ -121,11 +110,11 @@ struct ContactEditView: View {
           
     var information: some View {
             VStack(alignment: .trailingPhoneAndEmail, spacing: 16) {
-                subInfo(title: "First Name", source: contact.first_name, value: $firstName, validate: validateFields)
-                subInfo(title: "Last Name", source: contact.last_name, value: $lastName, validate: validateFields)
-                subInfo(title: "mobile", source: contact.phone, value: $phone, validate: validateFields)
+                subInfo(title: "First Name", source: nil, value: $firstName, validate: validateFields)
+                subInfo(title: "Last Name", source: nil, value: $lastName, validate: validateFields)
+                subInfo(title: "mobile", source: nil, value: $phone, validate: validateFields)
                     .disabled(true)
-                subInfo(title: "email", source: contact.email, value: $email, validate: validateFields)
+                subInfo(title: "email", source: nil, value: $email, validate: validateFields)
             }
             .font(.system(size: 18))
             .padding(.horizontal, 20)
@@ -137,7 +126,7 @@ struct ContactEditView: View {
 //                .foregroundColor(.secondary)
 //                .alignmentGuide(.trailingPhoneAndEmail) { d in d[HorizontalAlignment.trailing] }
 //                .padding(.leading, 8)
-//
+//            
 //            VStack {
 //                TextField("", text: value)
 //                    .onChange(of: value.wrappedValue) { new in
@@ -161,8 +150,8 @@ struct ContactEditView: View {
     }
 }
 
-struct ContactEditView_Previews: PreviewProvider {
+struct ContactAddView_Previews: PreviewProvider {
     static var previews: some View {
-        ContactEditView(contact: .preview)
+        ContactAddView()
     }
 }

@@ -12,7 +12,7 @@ struct ContactRowView: View {
     
     var body: some View {
         HStack(spacing: 16) {
-            thumbnail(from: contact.avatar ?? "", width: 60, height: 60)
+            thumbnail(from: contact.avatar ?? "", width: 60, height: 60, strokeWidth: 4)
                 .padding(4)
             
             Text(contact.fullName)

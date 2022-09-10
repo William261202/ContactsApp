@@ -60,6 +60,14 @@ struct UserDetail: Codable {
     var lastName: String?
     var avatar: String?
     
+    private enum UserCodingKeys: String, CodingKey {
+        case id
+        case email
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case avatar
+    }
+    
     var dictionaryValue: [String: Any] {
         [
             "id": id,

@@ -9,8 +9,8 @@ import SwiftUI
 
 extension View {
     @ViewBuilder
-    func thumbnail(from string: String, width: CGFloat, height: CGFloat) -> some View {
-        AsyncImage(url: URL(string: string)) { phase in
+    public func thumbnail(from string: String, width: CGFloat, height: CGFloat, strokeWidth: CGFloat) -> some View {
+        AsyncImage(url: URL(string: string.isEmpty ? "uxwjqmlgtuk" : string)) { phase in
             switch phase {
             case .empty:
                 ProgressView()
@@ -19,15 +19,35 @@ extension View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-            case .failure:
-                EmptyView()
-            @unknown default:
-                EmptyView()
+            default:
+                Circle()
             }
         }
         .frame(width: width, height: height)
-        .background(Color.white)
+        .background(Color.black)
         .clipShape(Circle())
-        .background(Circle().stroke(Color.white,lineWidth:8).shadow(radius: 8))
+        .overlay(Circle().stroke(Color.white, lineWidth:strokeWidth).shadow(radius: 8))
+    }
+    
+    public func subInfo(title: String, source: String?, value: Binding<String>, validate: @escaping (String?, String) -> Void) -> some View {
+        HStack(spacing: 20) {
+            Text(title)
+                .foregroundColor(.secondary)
+                .alignmentGuide(.trailingPhoneAndEmail) { d in d[HorizontalAlignment.trailing] }
+                .padding(.leading, 8)
+            
+            VStack {
+                TextField("", text: value)
+                    .onChange(of: value.wrappedValue) { new in
+                        validate(source, new)
+                        //validateFields(compare: source, to: new)
+                    }
+                    .frame(height: 30)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Divider()
+            }
+            .frame(maxWidth: 250, alignment: .leading)
+        }
+        .padding(.vertical, 8)
     }
 }

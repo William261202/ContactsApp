@@ -23,6 +23,9 @@ class ContactsProvider {
     
     /// A shared contacts provider for use within the main app bundle.
     static let shared = ContactsProvider()
+    
+    let userDefault = UserDefaults.standard
+    static let PKKey = "PKValue"
 
     /// A contact provider for use with canvas previews.
     static let preview: ContactsProvider = {
@@ -165,8 +168,18 @@ class ContactsProvider {
         let total = users.count
 
         // Provide one dictionary at a time when the closure is called.
-        let batchInsertRequest = NSBatchInsertRequest(entity: Contact.entity(), dictionaryHandler: { dictionary in
+        let batchInsertRequest = NSBatchInsertRequest(entity: Contact.entity(), dictionaryHandler: { [weak self] dictionary in
             guard index < total else { return true }
+            
+            // Grab the highest PK value
+            if let self = self {
+                let user = users[index]
+                let pkValue = self.userDefault.integer(forKey: ContactsProvider.PKKey)
+                if user.id > pkValue {
+                    self.userDefault.set(user.id, forKey: ContactsProvider.PKKey)
+                }
+            }
+            
             dictionary.addEntries(from: users[index].dictionaryValue)
             index += 1
             return false

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E0D37B928CC3186001A84ED /* Contact+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D37B828CC3186001A84ED /* Contact+Codable.swift */; };
+		9E0D37BD28CC3D35001A84ED /* ContactAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D37BC28CC3D35001A84ED /* ContactAddView.swift */; };
 		9E3F5A7F28C87DB800531A7F /* ContactsApp_ThihaYeYintAungApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F5A7E28C87DB800531A7F /* ContactsApp_ThihaYeYintAungApp.swift */; };
 		9E3F5A8328C87DBA00531A7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E3F5A8228C87DBA00531A7F /* Assets.xcassets */; };
 		9E3F5A8628C87DBA00531A7F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E3F5A8528C87DBA00531A7F /* Preview Assets.xcassets */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		9E0D37B828CC3186001A84ED /* Contact+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Contact+Codable.swift"; sourceTree = "<group>"; };
+		9E0D37BC28CC3D35001A84ED /* ContactAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactAddView.swift; sourceTree = "<group>"; };
 		9E3F5A7B28C87DB800531A7F /* ContactsApp_ThihaYeYintAung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsApp_ThihaYeYintAung.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3F5A7E28C87DB800531A7F /* ContactsApp_ThihaYeYintAungApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsApp_ThihaYeYintAungApp.swift; sourceTree = "<group>"; };
 		9E3F5A8228C87DBA00531A7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				9E3F5AB228C8F35700531A7F /* ContentView.swift */,
 				9EB802F528CB258D00975A17 /* ContactDetailView.swift */,
 				9EB8030628CB82DA00975A17 /* ContactEditView.swift */,
+				9E0D37BC28CC3D35001A84ED /* ContactAddView.swift */,
 				9EB802FF28CB649100975A17 /* SubView */,
 			);
 			path = View;
@@ -359,6 +362,7 @@
 				9EB8030128CB649D00975A17 /* CommunicationIcon.swift in Sources */,
 				9EB8030728CB82DA00975A17 /* ContactEditView.swift in Sources */,
 				9EB8030328CB71EB00975A17 /* CustomAlignment.swift in Sources */,
+				9E0D37BD28CC3D35001A84ED /* ContactAddView.swift in Sources */,
 				9E3F5AC128C986FE00531A7F /* Optional.swift in Sources */,
 				9EB802F428CAFE8000975A17 /* ContactError.swift in Sources */,
 				9E3F5ABE28C8FDAA00531A7F /* Contact_CoreDataClass.swift in Sources */,

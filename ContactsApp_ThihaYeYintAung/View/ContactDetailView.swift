@@ -38,7 +38,7 @@ struct ContactDetailView: View {
     
     var profile: some View {
         VStack(spacing: 8) {
-            thumbnail(from: contact.avatar ?? "", width: 150, height: 150)
+            thumbnail(from: contact.avatar ?? "", width: 150, height: 150, strokeWidth: 8)
             
             Text(contact.fullName)
                 .font(.title2.bold())

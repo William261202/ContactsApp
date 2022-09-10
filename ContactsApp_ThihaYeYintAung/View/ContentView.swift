@@ -21,6 +21,8 @@ struct ContentView: View {
     @State private var isLoading = false
     @State private var error: ContactError?
     @State private var hasError = false
+    
+    @State private var isAddPresented = false
 
     var body: some View {
         NavigationView {
@@ -32,13 +34,25 @@ struct ContentView: View {
                         ContactRowView(contact: contact)
                     }
                 }
-//                .onDelete(perform: deleteItems)
             }
             .listStyle(.inset)
             .navigationTitle("Contacts")
             .navigationBarTitleDisplayMode(.inline)
             .task {
                 await fetchQuakes()
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        isAddPresented.toggle()
+                    }, label: {
+                        Image(systemName: "plus")
+                            .imageScale(.large)
+                    })
+                }
+            }
+            .fullScreenCover(isPresented: $isAddPresented) {
+                ContactAddView()
             }
             #if os(iOS)
             .refreshable {
@@ -48,27 +62,6 @@ struct ContentView: View {
             Text("Select a contact")
         }
     }
-    
-//    private func addItem() {
-//        withAnimation {
-//            let newContact = Contact(context: contactsProvider.container.viewContext)
-//            newContact.first_name = "Thiha"
-//            newContact.last_name = "Ye Yint Aung"
-//            newContact.phone = "86180253"
-//            newContact.email = "thihayeyintaung110919@gmail.com"
-//            newContact.id = UUID()
-//            newContact.created_date = Date()
-//
-//            do {
-//                try contactsProvider.container.viewContext.save()
-//            } catch {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                let nsError = error as NSError
-//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//            }
-//        }
-//    }
 }
 
 extension ContentView {
