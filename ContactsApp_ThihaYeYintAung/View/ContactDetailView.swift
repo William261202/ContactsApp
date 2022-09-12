@@ -11,17 +11,15 @@ struct ContactDetailView: View {
     let contact: Contact
     @State private var isEditPresented = false
     
-    @State private var firstName: String = ""
-    @State private var lastName: String = ""
-    @State private var phone: String = ""
-    @State private var email: String = ""
+    @State private var detailInput: DetailInput
     
     init(contact: Contact) {
         self.contact = contact
-        _firstName = .init(wrappedValue: contact.first_name ?? "")
-        _lastName = .init(wrappedValue: contact.last_name ?? "")
-        _phone = .init(wrappedValue: contact.phone ?? "")
-        _email = .init(wrappedValue: contact.email ?? "")
+        _detailInput = .init(
+            wrappedValue: DetailInput(firstName: contact.first_name ?? "",
+                                      lastName: contact.last_name ?? "",
+                                      phone: contact.phone ?? "",
+                                      email: contact.email ?? ""))
     }
     
     var body: some View {
@@ -46,10 +44,7 @@ struct ContactDetailView: View {
         }
         .fullScreenCover(isPresented: $isEditPresented) {
             ContactEditView(contact: contact,
-                            firstName: $firstName,
-                            lastName: $lastName,
-                            phone: $phone,
-                            email: $email)
+                            detailInput: $detailInput)
         }
     }
     
@@ -57,7 +52,7 @@ struct ContactDetailView: View {
         VStack(spacing: 8) {
             Thumbnail(urlString: contact.avatar ?? "", width: 150, height: 150, strokeWidth: 8)
             
-            Text("\(firstName) \(lastName)")
+            Text("\(detailInput.firstName) \(detailInput.lastName)")
                 .font(.title2.bold())
         }
     }
@@ -73,9 +68,9 @@ struct ContactDetailView: View {
     
     var information: some View {
         VStack(alignment: .trailingPhoneAndEmail, spacing: 16) {
-            SubInfo(title: "mobile", source: nil, value: $phone, validate: nil)
+            SubInfo(title: "mobile", source: nil, value: $detailInput.phone, validate: nil)
             
-            SubInfo(title: "email", source: nil, value: $email, validate: nil)
+            SubInfo(title: "email", source: nil, value: $detailInput.email, validate: nil)
         }
         .disabled(true)
         .font(.system(size: 18))

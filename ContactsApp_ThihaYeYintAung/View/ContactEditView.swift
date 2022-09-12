@@ -13,10 +13,14 @@ struct ContactEditView: View {
             
     let contact: Contact
     
-    @Binding var firstName: String
-    @Binding var lastName: String
-    @Binding var phone: String
-    @Binding var email: String
+    @Binding var detailInput: DetailInput
+    @State private var draftDetailInput: DetailInput
+    
+    init(contact: Contact, detailInput: Binding<DetailInput>) {
+        self.contact = contact
+        _detailInput = detailInput
+        _draftDetailInput = State(wrappedValue: detailInput.wrappedValue)
+    }
     
     @State var saveDisabled = true
     @State private var confirmationMessage = ""
@@ -38,7 +42,7 @@ struct ContactEditView: View {
             .navigationBarItems(
                 leading: cancelButton,
                 trailing: saveButton
-            .disabled(saveDisabled || firstName.isEmpty || lastName.isEmpty))
+                    .disabled(saveDisabled || draftDetailInput.firstName.isEmpty || draftDetailInput.lastName.isEmpty))
             .alert("Updated!", isPresented: $showingConfirmation) {
                 Button("OK") { presentation.wrappedValue.dismiss() }
             } message: {
@@ -65,17 +69,17 @@ struct ContactEditView: View {
     
     private func editContact() throws {
         // Update entity properties as needed
-        contact.first_name = firstName
-        contact.last_name = lastName
-        contact.phone = phone
-        contact.email = email
+        contact.first_name = draftDetailInput.firstName
+        contact.last_name = draftDetailInput.lastName
+        contact.phone = draftDetailInput.phone
+        contact.email = draftDetailInput.email
         contact.modified_date = Date()
         
         try viewContext.save()
     }
     
     func save() async {
-        let userDetail = UserDetail(id: contact.id, email: email, firstName: firstName, lastName: lastName, avatar: contact.avatar)
+        let userDetail = UserDetail(id: contact.id, email: draftDetailInput.email, firstName: draftDetailInput.firstName, lastName: draftDetailInput.lastName, avatar: contact.avatar)
         guard let encoded = try? JSONEncoder().encode(userDetail) else {
             print("Failed to encode a contact")
             return
@@ -94,6 +98,9 @@ struct ContactEditView: View {
             
             confirmationMessage = "Contact ID: \(decodedUser.id) \(decodedUser.firstName ?? "") \(decodedUser.lastName ?? "") is successfully updated!"
             showingConfirmation = true
+            
+            // Send back lastest updated info to ContactDetail View
+            detailInput = draftDetailInput
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
@@ -102,11 +109,11 @@ struct ContactEditView: View {
           
     var information: some View {
             VStack(alignment: .trailingPhoneAndEmail, spacing: 16) {
-                SubInfo(title: "First Name", source: contact.first_name, value: $firstName, validate: validateFields)
-                SubInfo(title: "Last Name", source: contact.last_name, value: $lastName, validate: validateFields)
-                SubInfo(title: "mobile", source: contact.phone, value: $phone, validate: validateFields)
+                SubInfo(title: "First Name", source: contact.first_name, value: $draftDetailInput.firstName, validate: validateFields)
+                SubInfo(title: "Last Name", source: contact.last_name, value: $draftDetailInput.lastName, validate: validateFields)
+                SubInfo(title: "mobile", source: contact.phone, value: $draftDetailInput.phone, validate: validateFields)
                     .disabled(true)
-                SubInfo(title: "email", source: contact.email, value: $email, validate: validateFields)
+                SubInfo(title: "email", source: contact.email, value: $draftDetailInput.email, validate: validateFields)
             }
             .font(.system(size: 18))
             .padding(.horizontal, 20)
