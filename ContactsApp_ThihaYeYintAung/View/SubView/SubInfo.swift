@@ -11,7 +11,7 @@ struct SubInfo: View {
     let title: String
     let source: String?
     let value: Binding<String>
-    let validate: (String?, String) -> Void
+    let validate: ((String?, String) -> Void)?
 
     var body: some View {
         HStack(spacing: 20) {
@@ -23,7 +23,10 @@ struct SubInfo: View {
             VStack {
                 TextField("", text: value)
                     .onChange(of: value.wrappedValue) { new in
-                        validate(source, new)
+                        if let validate = validate {
+                            validate(source, new)
+                        }
+                        return
                         //validateFields(compare: source, to: new)
                     }
                     .frame(height: 30)

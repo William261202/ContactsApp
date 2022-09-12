@@ -10,25 +10,17 @@ import SwiftUI
 struct ContactEditView: View {
     @Environment(\.presentationMode) var presentation
     @Environment(\.managedObjectContext) var viewContext
+            
+    let contact: Contact
     
-    @State private var firstName: String = ""
-    @State private var lastName: String = ""
-    @State private var phone: String = ""
-    @State private var email: String = ""
+    @Binding var firstName: String
+    @Binding var lastName: String
+    @Binding var phone: String
+    @Binding var email: String
     
     @State var saveDisabled = true
     @State private var confirmationMessage = ""
     @State private var showingConfirmation = false
-        
-    let contact: Contact
-    
-    init(contact: Contact) {
-        self.contact = contact
-        _firstName = .init(wrappedValue: contact.first_name ?? "")
-        _lastName = .init(wrappedValue: contact.last_name ?? "")
-        _phone = .init(wrappedValue: contact.phone ?? "")
-        _email = .init(wrappedValue: contact.email ?? "")
-    }
     
     var body: some View {
         NavigationView {
@@ -129,8 +121,8 @@ struct ContactEditView: View {
     }
 }
 
-struct ContactEditView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContactEditView(contact: .preview)
-    }
-}
+//struct ContactEditView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContactEditView(contact: .preview)
+//    }
+//}

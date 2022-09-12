@@ -11,6 +11,19 @@ struct ContactDetailView: View {
     let contact: Contact
     @State private var isEditPresented = false
     
+    @State private var firstName: String = ""
+    @State private var lastName: String = ""
+    @State private var phone: String = ""
+    @State private var email: String = ""
+    
+    init(contact: Contact) {
+        self.contact = contact
+        _firstName = .init(wrappedValue: contact.first_name ?? "")
+        _lastName = .init(wrappedValue: contact.last_name ?? "")
+        _phone = .init(wrappedValue: contact.phone ?? "")
+        _email = .init(wrappedValue: contact.email ?? "")
+    }
+    
     var body: some View {
         VStack(spacing: 16) {
             VStack(spacing: 30) {
@@ -32,7 +45,11 @@ struct ContactDetailView: View {
             })
         }
         .fullScreenCover(isPresented: $isEditPresented) {
-            ContactEditView(contact: contact)
+            ContactEditView(contact: contact,
+                            firstName: $firstName,
+                            lastName: $lastName,
+                            phone: $phone,
+                            email: $email)
         }
     }
     
@@ -40,7 +57,7 @@ struct ContactDetailView: View {
         VStack(spacing: 8) {
             Thumbnail(urlString: contact.avatar ?? "", width: 150, height: 150, strokeWidth: 8)
             
-            Text(contact.fullName)
+            Text("\(firstName) \(lastName)")
                 .font(.title2.bold())
         }
     }
@@ -56,30 +73,13 @@ struct ContactDetailView: View {
     
     var information: some View {
         VStack(alignment: .trailingPhoneAndEmail, spacing: 16) {
-            subInfo(title: "mobile", value: contact.phone ?? "")
+            SubInfo(title: "mobile", source: nil, value: $phone, validate: nil)
             
-            subInfo(title: "email", value: contact.email ?? "")
+            SubInfo(title: "email", source: nil, value: $email, validate: nil)
         }
+        .disabled(true)
         .font(.system(size: 18))
         .padding(.horizontal, 20)
-    }
-    
-    private func subInfo(title: String, value: String) -> some View {
-        HStack(spacing: 20) {
-            Text(title)
-                .foregroundColor(.secondary)
-                .alignmentGuide(.trailingPhoneAndEmail) { d in d[HorizontalAlignment.trailing] }
-                .padding(.leading, 8)
-            
-            VStack {
-                Text(value)
-                    .frame(height: 30)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Divider()
-            }
-            .frame(maxWidth: 250, alignment: .leading)
-        }
-        .padding(.vertical, 8)
     }
 }
 
