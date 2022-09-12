@@ -33,7 +33,7 @@ struct ContactEditView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 16) {
-                thumbnail(from: contact.avatar ?? "", width: 150, height: 150, strokeWidth: 8)
+                Thumbnail(urlString: contact.avatar ?? "", width: 150, height: 150, strokeWidth: 8)
                     .padding(.vertical, 16)
                     .padding(.bottom, 8)
                     .frame(maxWidth: .infinity)
@@ -110,11 +110,11 @@ struct ContactEditView: View {
           
     var information: some View {
             VStack(alignment: .trailingPhoneAndEmail, spacing: 16) {
-                subInfo(title: "First Name", source: contact.first_name, value: $firstName, validate: validateFields)
-                subInfo(title: "Last Name", source: contact.last_name, value: $lastName, validate: validateFields)
-                subInfo(title: "mobile", source: contact.phone, value: $phone, validate: validateFields)
+                SubInfo(title: "First Name", source: contact.first_name, value: $firstName, validate: validateFields)
+                SubInfo(title: "Last Name", source: contact.last_name, value: $lastName, validate: validateFields)
+                SubInfo(title: "mobile", source: contact.phone, value: $phone, validate: validateFields)
                     .disabled(true)
-                subInfo(title: "email", source: contact.email, value: $email, validate: validateFields)
+                SubInfo(title: "email", source: contact.email, value: $email, validate: validateFields)
             }
             .font(.system(size: 18))
             .padding(.horizontal, 20)

@@ -38,16 +38,16 @@ struct ContentView: View {
             .listStyle(.inset)
             .navigationTitle("Contacts")
             .navigationBarTitleDisplayMode(.inline)
-            .task {
-                await fetchQuakes()
-            }
+//            .task {
+//                await fetchContacts()
+//            }
             .toolbar(content: toolbarContent)
             .fullScreenCover(isPresented: $isAddPresented) {
                 ContactAddView()
             }
             #if os(iOS)
             .refreshable {
-                await fetchQuakes()
+                await fetchContacts()
             }
             #endif
             Text("Select a contact")
@@ -70,7 +70,7 @@ extension ContentView {
         ToolbarItemGroup(placement: .bottomBar) {
             RefreshButton {
                 Task {
-                    await fetchQuakes()
+                    await fetchContacts()
                 }
             }
 
@@ -87,10 +87,10 @@ extension ContentView {
 }
 
 extension ContentView {
-    private func fetchQuakes() async {
+    private func fetchContacts() async {
         isLoading = true
         do {
-            try await contactsProvider.fetchQuakes()
+            try await contactsProvider.fetchContacts()
             lastUpdated = Date().timeIntervalSince1970
         } catch {
             self.error = error as? ContactError ?? .unexpectedError(error: error)

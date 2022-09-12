@@ -112,11 +112,11 @@ struct ContactAddView: View {
           
     var information: some View {
             VStack(alignment: .trailingPhoneAndEmail, spacing: 16) {
-                subInfo(title: "First Name", source: nil, value: $firstName, validate: validateFields)
-                subInfo(title: "Last Name", source: nil, value: $lastName, validate: validateFields)
-                subInfo(title: "mobile", source: nil, value: $phone, validate: validateFields)
+                SubInfo(title: "First Name", source: nil, value: $firstName, validate: validateFields)
+                SubInfo(title: "Last Name", source: nil, value: $lastName, validate: validateFields)
+                SubInfo(title: "mobile", source: nil, value: $phone, validate: validateFields)
                     .disabled(true)
-                subInfo(title: "email", source: nil, value: $email, validate: validateFields)
+                SubInfo(title: "email", source: nil, value: $email, validate: validateFields)
             }
             .font(.system(size: 18))
             .padding(.horizontal, 20)

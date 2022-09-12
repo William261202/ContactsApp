@@ -124,7 +124,7 @@ class ContactsProvider {
     }
 
     /// Fetches the earthquake feed from the remote server, and imports it into Core Data.
-    func fetchQuakes() async throws {
+    func fetchContacts() async throws {
         let session = URLSession.shared
         guard let (data, response) = try? await session.data(from: url),
               let httpResponse = response as? HTTPURLResponse,
@@ -157,7 +157,7 @@ class ContactsProvider {
         let taskContext = newTaskContext()
         // Add name and author to identify source of persistent history changes.
         taskContext.name = "importContext"
-        taskContext.transactionAuthor = "importQuakes"
+        taskContext.transactionAuthor = "importContacts"
 
         /// - Tag: performAndWait
         try await taskContext.perform {
@@ -221,7 +221,7 @@ class ContactsProvider {
         let taskContext = newTaskContext()
         // Add name and author to identify source of persistent history changes.
         taskContext.name = "deleteContext"
-        taskContext.transactionAuthor = "deleteQuakes"
+        taskContext.transactionAuthor = "deleteContacts"
         logger.debug("Start deleting data from the store...")
 
         try await taskContext.perform {
