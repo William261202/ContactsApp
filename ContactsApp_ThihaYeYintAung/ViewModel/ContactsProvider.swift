@@ -12,8 +12,8 @@ class ContactsProvider {
 
     // MARK: USGS Data
     
-    /// User data provided by Reqres API. See ACKNOWLEDGMENTS.txt for additional details.
-    let url = URL(string: "https://reqres.in/api/users?per_page=10")!
+    /// User data provided by Reqres API.
+    let dataSource = RemoteDataSource<User>(for: "https://reqres.in/api/users?per_page=10")
 
     // MARK: Logging
     
@@ -123,30 +123,16 @@ class ContactsProvider {
         return taskContext
     }
 
-    /// Fetches the earthquake feed from the remote server, and imports it into Core Data.
+    /// Fetches the user feed from the remote server, and imports it into Core Data.
     func fetchContacts() async throws {
-        let session = URLSession.shared
-        guard let (data, response) = try? await session.data(from: url),
-              let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200
-        else {
-            logger.debug("Failed to received valid response and/or data.")
-            throw ContactError.missingData
-        }
-
         do {
-            // Decode the GeoJSON into a data model.
-            let jsonDecoder = JSONDecoder()
-            let userJSON = try jsonDecoder.decode(User.self, from: data)
-            let users = userJSON.userArray
-            logger.debug("Received \(users.count) records.")
-
-            // Import the GeoJSON into Core Data.
+            let users = try await dataSource.fetchData()
+            
             logger.debug("Start importing data to the store...")
-            try await importContacts(from: users)
+            try await importContacts(from: users.userArray)
             logger.debug("Finished importing data.")
         } catch {
-            throw ContactError.wrongDataFormat(error: error)
+            logger.debug("Failed to fetch contacts, \(error.localizedDescription).")
         }
     }
 
@@ -201,22 +187,22 @@ class ContactsProvider {
     }
 
     /// Synchronously deletes given records in the Core Data store with the specified object IDs.
-    func deleteQuakes(identifiedBy objectIDs: [NSManagedObjectID]) {
+    func deleteContacts(identifiedBy objectIDs: [NSManagedObjectID]) {
         let viewContext = container.viewContext
         logger.debug("Start deleting data from the store...")
 
         viewContext.perform {
             objectIDs.forEach { objectID in
-                let quake = viewContext.object(with: objectID)
-                viewContext.delete(quake)
+                let contact = viewContext.object(with: objectID)
+                viewContext.delete(contact)
             }
         }
 
         logger.debug("Successfully deleted data.")
     }
 
-    /// Asynchronously deletes records in the Core Data store with the specified `Quake` managed objects.
-    func deleteQuakes(_ contacts: [Contact]) async throws {
+    /// Asynchronously deletes records in the Core Data store with the specified `Contact` managed objects.
+    func deleteContacts(_ contacts: [Contact]) async throws {
         let objectIDs = contacts.map { $0.objectID }
         let taskContext = newTaskContext()
         // Add name and author to identify source of persistent history changes.
